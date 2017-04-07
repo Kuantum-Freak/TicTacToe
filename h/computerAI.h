@@ -30,8 +30,6 @@ int computerAI();
 
 int analyzeBoards();
 
-inline void storeBoard();
-
 void outputBoards();
 
 void writeDataToFile(std::string winner);
@@ -39,5 +37,7 @@ void writeDataToFile(std::string winner);
 void loadDataFromFiles();
 
 void computeDigests();
+
+void storeBoard();
 
 #endif

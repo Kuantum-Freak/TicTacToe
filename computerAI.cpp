@@ -53,8 +53,8 @@ struct AnalysisData {
 
 vector<Game> runs; // stores all the runs we have played
 
-Game &currGame; // pointer to the current game
-Digest &currDigest; // pointer to the current digest
+Game* currGame; // pointer to the current game
+Digest* currDigest; // pointer to the current digest
 
 void initAI() {
 	loadDataFromFiles();
@@ -65,8 +65,8 @@ void addRun() {
 	Game g;
 	runs.push_back(g);
 	
-	currGame = runs[runs.size() - 1];
-	currDigest = currGame.digest;
+	currGame = &runs[runs.size() - 1];
+	currDigest = &currGame->digest;
 }
 
 int computerAI() {
@@ -99,10 +99,10 @@ int analyzeBoards() {
 	
 	for(unsigned i = 0; i < runs.size() - 1; ++i) {
 		Digest &tmpDigest = runs[i].digest;
-		for(unsigned j = 0; j < currDigest.size(); ++j) {
-			if(currDigest[j] != tmpDigest[j])
+		for(unsigned j = 0; j < currDigest->size(); ++j) {
+			if((*currDigest)[j] != tmpDigest[j])
 				break;
-			if(j == currDigest.size() - 1) {
+			if(j == currDigest->size() - 1) {
 				matchingPositions.push_back(
 					AnalysisData {
 						i,
@@ -127,12 +127,12 @@ int analyzeBoards() {
 	/*/ ======== ROTATION ===========
 		for(unsigned i = 0; i < runs.size() - 1; ++i) {
 		Digest* tmpDigest = &(runs[i].digest);
-		for(unsigned j = 0; j < currDigest.size(); ++j) {
+		for(unsigned j = 0; j < currDigest->size(); ++j) {
 			int cdNum = (*tmpDigest)[j];
 			int cdNumR = (cdNum + 8) + (8 - (cdNum + 8)) - (cdNum % 3);
 			if((*currDigest)[j] != cdNumR)
 				break;
-			if(j == currDigest.size() - 1) {
+			if(j == currDigest->size() - 1) {
 				matchingPositions.push_back(
 					AnalysisData {
 						i,
@@ -163,7 +163,7 @@ int analyzeBoards() {
 	for(auto &i: matchingPositions) {
 		// Finds the possiblities
 		possibleHits[
-			runs[i.gameNumber].digest[currDigest.size()]
+			runs[i.gameNumber].digest[currDigest->size()]
 		]++;
 	}
 	
@@ -177,8 +177,8 @@ int analyzeBoards() {
 	return (rand() % 9);
 }
 
-inline void storeBoard() {
-	currGame.boards.push_back(board);
+void storeBoard() {
+	currGame->boards.push_back(board);
 }
 
 void outputBoards() {
@@ -204,11 +204,11 @@ void writeDataToFile(std::string cWinner) {
 	using std::to_string;
 	
 	if     (strcmp(cWinner.c_str(), "Player 1 (User)") == 0)
-		currGame.winner = playerPeices[P1PIECE];
+		currGame->winner = playerPeices[P1PIECE];
 	else if(strcmp(cWinner.c_str(), "Player 2 (Computer)") == 0)
-		currGame.winner = playerPeices[P2PIECE];
+		currGame->winner = playerPeices[P2PIECE];
 	else if(strcmp(cWinner.c_str(), "No one (Tie)") == 0)
-		currGame.winner = 'T';
+		currGame->winner = 'T';
 	
 	string fileName;
 	for(int i = 0;;++i) {
@@ -224,9 +224,9 @@ void writeDataToFile(std::string cWinner) {
 	
 	FILE* currFile = fopen(fileName.c_str(), "w");
 	
-	fprintf(currFile, "%c", currGame.winner);
+	fprintf(currFile, "%c", currGame->winner);
 	
-	for(auto &i: currGame.boards) { // i is a board
+	for(auto &i: currGame->boards) { // i is a board
 		fprintf(currFile, ":");
 		for(auto &j: i) // j is a row
 			for(auto &k: j) // k is the char
@@ -256,7 +256,7 @@ void loadDataFromFiles() {
 			Game curLGame; // create new Game to store our data
 			
 			// get pointer to our curr Board Set
-			vector<Board> &curLBoards = &(curLGame.boards);
+			vector<Board> &curLBoards = curLGame.boards;
 			
 			// get winner and set it
 			curLGame.winner = getc(currFile);
@@ -318,7 +318,7 @@ void computeDigests() {
 			Board* cmpBoard1 = &(gDigGame.boards[i]);
 			Board* cmpBoard2 = &(gDigGame.boards[i + 1]);
 			
-			for(unsigned j = 0; j < cmpBoard1.size(); ++j)
+			for(unsigned j = 0; j < cmpBoard1->size(); ++j)
 				for(unsigned k = 0; k < (*cmpBoard1)[j].size(); ++k) {
 					//LOGL("COMPARE " << j << ' ' << k);
 					if((*cmpBoard1)[j][k] != (*cmpBoard2)[j][k])
