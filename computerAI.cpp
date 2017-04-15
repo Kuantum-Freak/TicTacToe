@@ -56,6 +56,16 @@ vector<Game> runs; // stores all the runs we have played
 Game* currGame; // pointer to the current game
 Digest* currDigest; // pointer to the current digest
 
+int computerAI() {
+	minimax();
+	
+	//return analyzeBoards();
+}
+
+int minimax() {
+	
+}
+
 void initAI() {
 	loadDataFromFiles();
 	computeDigests();
@@ -67,10 +77,6 @@ void addRun() {
 	
 	currGame = &runs[runs.size() - 1];
 	currDigest = &currGame->digest;
-}
-
-int computerAI() {
-	return analyzeBoards();
 }
 
 int analyzeBoards() {
