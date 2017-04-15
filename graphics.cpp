@@ -37,25 +37,14 @@ SDL_Texture* textTexture				=  NULL;
 TTF_Font* mainFont						=  NULL;
 TTF_Font* legFont						=  NULL;
 
-/* 
-	@summary		Initialize SDL, SDL_TTF, and SDL_Image. Then load the images
-					and fonts we need
-	
-	@param			VOID
-	@return			VOID
- */
+
 void initGraphics() {
 	initSDL();
 	loadPiecesIMG();
 	loadFont();
 }
 
-/* 
-	@summary		Initialize SDL, SDL_TTF, and SDL_Image
-	
-	@param			VOID
-	@return			VOID
- */
+
 void initSDL() {
 	// Setup SDL and SDL images
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) exit(-0x201); // -513
@@ -91,12 +80,7 @@ void initSDL() {
 	if(TTF_Init() == -1) exit(-0x209);
 }
 
-/* 
-	@summary		Loads all the images we need. The X image and O image
-	
-	@param			VOID
-	@return			VOID
- */
+
 void loadPiecesIMG() {
 	peiceMarkers[PIECES_X] = loadIMG("../res/X.png");
 	if (peiceMarkers[PIECES_X] == NULL) exit(-0x208); // -520
@@ -105,12 +89,7 @@ void loadPiecesIMG() {
 	if (peiceMarkers[PIECES_O] == NULL) exit(-0x208); // -520
 }
 
-/* 
-	@summary		Loads a image and optamizes it for the current screen
-	
-	@param			string: path to image
-	@return			SDL_Surface*: The optomized SDL_Surface
- */
+
 SDL_Texture* loadIMG(std::string path) {
 	using std::string;
 	
@@ -126,12 +105,7 @@ SDL_Texture* loadIMG(std::string path) {
 	return texture;
 }
 
-/* 
-	@summary		Loads the font and sets the font sizes
-	
-	@param			VOID
-	@return			VOID
- */
+
 void loadFont() {
 	mainFont = TTF_OpenFont("../res/arial.ttf", 45);
 	if(mainFont == NULL) exit(-0x20A);
@@ -140,12 +114,7 @@ void loadFont() {
 	if(mainFont == NULL) exit(-0x20B);
 }
 
-/* 
-	@summary		Displays the current state of the board
-	
-	@param			VOID
-	@return			VOID
- */
+
 void displayBoard() {
 	// =============  Clear screen  =============
 	SDL_SetRenderDrawColor(mainWinRenderer, 0x00, 0x00, 0x00, 0xFF);
@@ -221,12 +190,7 @@ void displayBoard() {
 	SDL_RenderPresent(mainWinRenderer);
 }
 
-/* 
-	@summary		Asks the user to pick a char (X or O)
-	
-	@param			VOID
-	@return			char: the peice the user wants to be
- */
+
 char askChar() {
 	// =============  CLEAR SCREEN =============
 	SDL_SetRenderDrawColor(mainWinRenderer, 0x00, 0x00, 0x00, 0x00);
@@ -312,12 +276,7 @@ char askChar() {
 	return 0;
 }
 
-/* 
-	@summary		Displays the legal stuff on the opening render
-	
-	@param			VOID
-	@return			VOID
- */
+
 void displayLegal() {
 	std::string legal[] = { // array of the legal text (3 lines)
 		std::string(
@@ -353,12 +312,7 @@ void displayLegal() {
 	}
 }
 
-/* 
-	@summary		Displays the winner and asks if we should play again or exit
-	
-	@param			string: winner of the game
-	@return			bool: if we should play again or not
- */
+
 bool displayWinner(std::string winner) {
 	// Concact String
 	std::string victoryMsg = winner + std::string(" has won.");
@@ -480,12 +434,7 @@ bool displayWinner(std::string winner) {
 	}
 }
 
-/* 
-	@summary		Gets Where the user wants to place his piece
-	
-	@param			VOID
-	@return			int: the place where he wants to place his piece
- */
+
 int getUserChoice() {
 	SDL_Event gEvent;
 	while(true) {
@@ -523,23 +472,12 @@ int getUserChoice() {
 	}
 }
 
-/* 
-	@summary		Cleans up the graphics for the next run. Currently does
-					nothing
-	
-	@param			VOID
-	@return			VOID
- */
+
 void cleanUpGraphics() {
 	
 }
 
-/* 
-	@summary		Deallocates all the surfaces and memory
-	
-	@param			VOID
-	@return			VOID
- */
+
 void destroy() {
 	// Destroy main Renderer
 	SDL_DestroyRenderer(mainWinRenderer);
