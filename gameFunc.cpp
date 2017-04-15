@@ -24,34 +24,19 @@
 #include ".\h\main.h"
 #include ".\h\board.h"
 
-/* 
-	@summary		Finds out if a player has won or not or the board is full
-	
-	@param			VOID
-	@return			bool | If a player has won or the board is full then true
- */
+
 bool playerWin() {
 	return  win(playerPeices[P1PIECE]) ||
 			win(playerPeices[P2PIECE]) || 
 			boardFilled();
 }
 
-/* 
-	@summary		Changes the turn
-	
-	@param			VOID
-	@return			VOID
- */
+
 void changeTurn() {
 	userTurn = !userTurn;
 }
 
-/* 
-	@summary		Gets the Winner
-	
-	@param			VOID
-	@return			string: containing the winner
- */
+
 std::string getWinner() {
 	if(win(playerPeices[P1PIECE]))
 		return "Player 1 (User)";
@@ -60,13 +45,7 @@ std::string getWinner() {
 	return "No one (Tie)";
 }
 
-/* 
-	@summary		checks if there is a '3 in a row' of a specified char, used 
-					in various functions to find out the winner
-	
-	@param			char: to check if its 3 in a row
-	@return			bool: if char occurs 3 in a row
- */
+
 bool win(const char CHAR) {
 	using std::out_of_range;
 	for(int i = 0; i < 3; ++i) {
