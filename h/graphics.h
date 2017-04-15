@@ -20,49 +20,49 @@
 
 #include <SDL.h>
 
-/// @summary		Initialize SDL, SDL_TTF, and SDL_Image. Then load the images\
+/// @brief		Initialize SDL, SDL_TTF, and SDL_Image. Then load the images\
 					and fonts we need
 void initGraphics();
 
-/// @summary		Initialize SDL, SDL_TTF, and SDL_Image
+/// @brief		Initialize SDL, SDL_TTF, and SDL_Image
 void initSDL();
 
-/// @summary		Loads all the images we need. The X image and O image
+/// @brief		Loads all the images we need. The X image and O image
 void loadPiecesIMG();
 
-/// @summary		Loads a image and optamizes it for the current screen
+/// @brief		Loads a image and optamizes it for the current screen
 /// @param			string: path to image
 /// @return			SDL_Surface*: The optomized SDL_Surface
 SDL_Texture* loadIMG(std::string path);
 
-/// @summary		Loads the font and sets the font sizes
+/// @brief		Loads the font and sets the font sizes
 
 void loadFont();
 
-/// @summary		Displays the current state of the board
+/// @brief		Displays the current state of the board
 void displayBoard();
 
 
-/// @summary		Asks the user to pick a char (X or O)
+/// @brief		Asks the user to pick a char (X or O)
 /// @return			char: the peice the user wants to be
 char askChar();
 
-/// @summary		Displays the legal stuff on the opening render
+/// @brief		Displays the legal stuff on the opening render
 void displayLegal();
 
-/// @summary		Displays the winner and asks if we should play again or exit
+/// @brief		Displays the winner and asks if we should play again or exit
 /// @param			string: winner of the game
 /// @return			bool: if we should play again or not
 bool displayWinner(std::string winner);
 
-/// @summary		Gets Where the user wants to place his piece
+/// @brief		Gets Where the user wants to place his piece
 /// @return			int: the place where he wants to place his piece
 int getUserChoice();
 
-/// @summary		Cleans up the graphics for the next run. Currently does nothing
+/// @brief		Cleans up the graphics for the next run. Currently does nothing
 void cleanUpGraphics();
 
-/// @summary		Deallocates all the surfaces and memory
+/// @brief		Deallocates all the surfaces and memory
 void destroy();
 
 #endif
