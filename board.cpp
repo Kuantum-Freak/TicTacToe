@@ -43,8 +43,8 @@ void updateBoard(int choice) {
 	} else {
 		board[choice / 3][choice % 3] = playerPeices[P2PIECE];
 	}
-	currDigest->push_back(choice);
-	storeBoard();
+	//currDigest->push_back(choice);
+	//storeBoard();
 	// outputBoards();
 }
 

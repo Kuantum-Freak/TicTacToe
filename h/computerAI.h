@@ -18,26 +18,15 @@
 #ifndef _COMPUTER_AI_H_
 #define _COMPUTER_AI_H_
 
-extern std::vector<uint8_t>* currDigest;
+typedef std::vector<std::vector<char> > Board; // type board
 
 // ====================
 
-void initAI();
-
-void addRun();
-
 int computerAI();
 
-int analyzeBoards();
+int minimax(bool isComputer, int choice, int depth, Board board);
 
-void outputBoards();
+char getWin(Board &board);
 
-void writeDataToFile(std::string winner);
-
-void loadDataFromFiles();
-
-void computeDigests();
-
-void storeBoard();
 
 #endif

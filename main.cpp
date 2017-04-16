@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
 			}
 		} while(!playerWin());
 		winner = getWinner();
-		writeDataToFile(winner);
+		//writeDataToFile(winner);
 	} while(displayWinner(winner));
 	
 	destroy();
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]) {
 void initEverything() {
 	userTurn = rand() % 2 == 0;
 	
-	initAI();
+	// initAI();
 	initBoard();
 	initGraphics();
 }
@@ -89,5 +89,5 @@ void initEverything() {
 void cleanUpEverything() {
 	cleanUpGraphics();
 	cleanUpBoard();
-	addRun();
+	//addRun();
 }
